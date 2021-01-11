@@ -7,7 +7,7 @@
     </div>
     <div class="form-control">
       <label for="age">Your Age (Years)</label>
-      <input id="age" name="age" type="number" v-model="userAge" ref="ageInput"/>
+      <input id="age" name="age" type="number" v-model="userAge" ref="ageInput" />
     </div>
     <div class="form-control">
       <label for="referrer">How did you hear about us?</label>
@@ -24,11 +24,23 @@
         <label for="interest-news">News</label>
       </div>
       <div>
-        <input id="interest-tutorials" name="interest" type="checkbox" value="tutorials" v-model="interest" />
+        <input
+          id="interest-tutorials"
+          name="interest"
+          type="checkbox"
+          value="tutorials"
+          v-model="interest"
+        />
         <label for="interest-tutorials">Tutorials</label>
       </div>
       <div>
-        <input id="interest-nothing" name="interest" type="checkbox" value="nothing" v-model="interest" />
+        <input
+          id="interest-nothing"
+          name="interest"
+          type="checkbox"
+          value="nothing"
+          v-model="interest"
+        />
         <label for="interest-nothing">Nothing</label>
       </div>
     </div>
@@ -62,9 +74,10 @@
 
 <script>
 import RatingControl from './RatingControl.vue';
+
 export default {
   components: {
-    RatingControl,
+    RatingControl
   },
   data() {
     return {
@@ -75,19 +88,19 @@ export default {
       how: null,
       confirm: false,
       rating: null,
-      userNameValidity: 'pending',
-    }
+      userNameValidity: 'pending'
+    };
   },
   methods: {
     submitForm() {
       console.log('Username: ' + this.userName);
       this.userName = '';
-      console.log('User age: ');
+      console.log('User age:');
       console.log(this.userAge + 5);
       console.log(this.$refs.ageInput.value + 5);
       console.log(31);
       this.userAge = null;
-      console.log('Refferer: ' + this.referrer);
+      console.log('Referrer: ' + this.referrer);
       this.referrer = 'wom';
       console.log('Checkboxes');
       console.log(this.interest);
@@ -103,14 +116,14 @@ export default {
       this.rating = null;
     },
     validateInput() {
-      if (this.userName === '')
+      if (this.userName === '') {
         this.userNameValidity = 'invalid';
-      else
+      } else {
         this.userNameValidity = 'valid';
-    },
-  }
-}
-
+      }
+    }
+  },
+};
 </script>
 
 <style scoped>
