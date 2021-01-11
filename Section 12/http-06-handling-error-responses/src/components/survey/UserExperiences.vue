@@ -7,7 +7,9 @@
       </div>
       <p v-if="isLoading">Loading...</p>
       <p v-else-if="!isLoading && error">{{ error }}</p>
-      <p v-else-if="!isLoading && (!results || results.length === 0)">No stored experiences found. Start adding some survey results first.</p>
+      <p
+        v-else-if="!isLoading && (!results || results.length === 0)"
+      >No stored experiences found. Start adding some survey results first.</p>
       <ul v-else>
         <survey-result
           v-for="result in results"
@@ -25,7 +27,7 @@ import SurveyResult from './SurveyResult.vue';
 
 export default {
   components: {
-    SurveyResult
+    SurveyResult,
   },
   data() {
     return {
@@ -38,13 +40,13 @@ export default {
     loadExperiences() {
       this.isLoading = true;
       this.error = null;
-      fetch(
-        'https://vue-http-demo-b9415-default-rtdb.firebaseio.com/surveys.json')
+      fetch('https://vue-http-demo-85e9e.firebaseio.com/surveys.json')
         .then((response) => {
           if (response.ok) {
             return response.json();
           }
-        }).then((data) => {
+        })
+        .then((data) => {
           this.isLoading = false;
           const results = [];
           for (const id in data) {
@@ -64,9 +66,8 @@ export default {
     },
   },
   mounted() {
-    // button pressing 없이 default로 보여주기
     this.loadExperiences();
-  }
+  },
 };
 </script>
 

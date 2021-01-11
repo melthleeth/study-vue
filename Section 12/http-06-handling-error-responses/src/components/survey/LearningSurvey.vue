@@ -9,13 +9,7 @@
         </div>
         <h3>My learning experience was ...</h3>
         <div class="form-control">
-          <input
-            type="radio"
-            id="rating-poor"
-            value="poor"
-            name="rating"
-            v-model="chosenRating"
-          />
+          <input type="radio" id="rating-poor" value="poor" name="rating" v-model="chosenRating" />
           <label for="rating-poor">Poor</label>
         </div>
         <div class="form-control">
@@ -29,18 +23,12 @@
           <label for="rating-average">Average</label>
         </div>
         <div class="form-control">
-          <input
-            type="radio"
-            id="rating-great"
-            value="great"
-            name="rating"
-            v-model="chosenRating"
-          />
+          <input type="radio" id="rating-great" value="great" name="rating" v-model="chosenRating" />
           <label for="rating-great">Great</label>
         </div>
-        <p v-if="invalidInput">
-          One or more input fields are invalid. Please check your provided data.
-        </p>
+        <p
+          v-if="invalidInput"
+        >One or more input fields are invalid. Please check your provided data.</p>
         <p v-if="error">{{ error }}</p>
         <div>
           <base-button>Submit</base-button>
@@ -51,7 +39,6 @@
 </template>
 
 <script>
-// import axios from 'axios';
 export default {
   data() {
     return {
@@ -74,44 +61,34 @@ export default {
       //   userName: this.enteredName,
       //   rating: this.chosenRating,
       // });
-      this.error = null;
-      // firebase는 .json이라고 붙여야됨
-      fetch(
-        'https://vue-http-demo-b9415-default-rtdb.firebaseio.com/surveys.json',
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            name: this.enteredName,
-            rating: this.chosenRating
-          })
-        }
-      )
-      .then(response => {
-        if(response.ok) {
-          // ...
-        } else {
-          throw new Error('Could not save data!');
-        }
-      }).catch((error) => {
-        console.log(error);
-        this.error = 'Something went wrong - try again later!';
-      }); 
 
-      // axios.post(
-      //   'https://vue-http-demo-b9415-default-rtdb.firebaseio.com/surveys.json',
-      //   {
-      //     name: this.enteredName,
-      //     rating: this.chosenRating
-      //   }
-      // );
-      
+      this.error = null;
+      fetch('https://vue-http-demo-85e9e.firebaseio.com/surveys.json', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: this.enteredName,
+          rating: this.chosenRating,
+        }),
+      })
+        .then((response) => {
+          if (response.ok) {
+            // ...
+          } else {
+            throw new Error('Could not save data!');
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+          this.error = error.message;
+        });
+
       this.enteredName = '';
       this.chosenRating = null;
-    }
-  }
+    },
+  },
 };
 </script>
 
