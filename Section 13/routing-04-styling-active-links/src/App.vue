@@ -1,5 +1,5 @@
 <template>
-  <the-navigation @set-page="setActivePage"></the-navigation>
+  <the-navigation></the-navigation>
   <main>
     <router-view></router-view>
   </main>
@@ -10,7 +10,7 @@ import TheNavigation from './components/nav/TheNavigation.vue';
 
 export default {
   components: {
-    TheNavigation,
+    TheNavigation
   },
   data() {
     return {
@@ -33,7 +33,7 @@ export default {
       teams: this.teams,
       users: this.users,
     };
-  },
+  }
 };
 </script>
 
