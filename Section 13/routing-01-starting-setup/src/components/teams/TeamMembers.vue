@@ -9,6 +9,7 @@
         :role="member.role"
       ></user-item>
     </ul>
+    <router-link to="/teams/t2">Go to Team 2 </router-link>
   </section>
 </template>
 
@@ -17,6 +18,7 @@ import UserItem from '../users/UserItem.vue';
 
 export default {
   inject: ['users', 'teams'],
+  props: ['teamId'],
   components: {
     UserItem
   },
@@ -26,9 +28,8 @@ export default {
        members: []
     };
   },
-  created() {
-    console.log(this.$route);
-    const teamId = this.$route.params.teamId;
+  methods: {
+    loadTeamMembers(teamId) {
     const selectedTeam = this.teams.find(team => team.id === teamId);
     const members = selectedTeam.members;
     const selectedMembers = [];
@@ -39,6 +40,23 @@ export default {
 
     this.members = selectedMembers;
     this.teamName = selectedTeam.name;
+    }
+  },
+  created() {
+    // this.$route.path // /teams/t1
+    this.loadTeamMembers(this.teamId);
+    console.log(this.$route.query);
+  },
+  beforeRouteUpdate(to, from, next) {
+    console.log('TeamMembers Cmp beforeRouteUpdate');
+    console.log(to, from);
+    // this.loadTeamMembers(to.params.teamId); // watch 안의 this.loadTeamMembers(newId)랑 같은 기능
+    next();
+  },
+  watch: {
+    teamId(newId) {
+      this.loadTeamMembers(newId);
+    }
   },
 };
 </script>
